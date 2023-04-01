@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserRepository userRepo;
+	private UserRepository userRepository;
 
 	@Autowired
-	private RoleRepository roleRepo;
+	private RoleRepository roleRepository;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -44,10 +44,10 @@ public class UserServiceImpl implements UserService {
 
 		try {
 			User user = modelMapper.map(userDTO, User.class);
-			Role role = roleRepo.findById(AppConstants.USER_ID).get();
+			Role role = roleRepository.findById(AppConstants.USER_ID).get();
 			user.getRoles().add(role);
 
-			User registeredUser = userRepo.save(user);
+			User registeredUser = userRepository.save(user);
 			userDTO = modelMapper.map(registeredUser, UserDTO.class);
 
 			return userDTO;
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
 		Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
 		
-		Page<User> pageUsers = userRepo.findAll(pageDetails);
+		Page<User> pageUsers = userRepository.findAll(pageDetails);
 		
 		List<User> users = pageUsers.getContent();
 
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getUserById(Long userId) {
-		User user = userRepo.findById(userId)
+		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 
 		UserDTO userDTO = modelMapper.map(user, UserDTO.class);
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO updateUser(Long userId, UserDTO userDTO) {
-		User user = userRepo.findById(userId)
+		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
 
 		String encodedPass = passwordEncoder.encode(userDTO.getPassword());
@@ -119,9 +119,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String deleteUser(Long userId) {
-		User user = userRepo.findById(userId)
+		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
-		userRepo.delete(user);
+		userRepository.delete(user);
 		return "User with userId " + userId + " deleted successfully!!!";
 	}
 

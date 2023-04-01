@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,7 +28,7 @@ public class UserController {
 		
 		UserResponse userResponse = userService.getAllUsers(pageNumber, pageSize, sortBy, sortOrder);
 		
-		return new ResponseEntity<UserResponse>(userResponse, HttpStatus.FOUND);
+		return new ResponseEntity<UserResponse>(userResponse, HttpStatus.OK);
 	}
 	
 	@GetMapping("/public/users/{userId}")
@@ -45,6 +46,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/admin/users/{userId}")
+	//@PreAuthorize("users_deleteuser")
 	public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
 		String status = userService.deleteUser(userId);
 		
