@@ -10,5 +10,5 @@ import java.util.List;
 public interface CurrencyRatesRepository extends JpaRepository<GlCurrencyRates, GlCurrencyRatesPk> {
      
 
-    List<GlCurrencyRates> findMaxByFromCurrencyAndToCurrency(GlCurrency fromCurrency, GlCurrency toCurrency);
+    //List<GlCurrencyRates> findMaxByFromCurrencyAndToCurrency(GlCurrency fromCurrency, GlCurrency toCurrency);
 }

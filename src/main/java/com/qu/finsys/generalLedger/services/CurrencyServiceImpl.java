@@ -21,10 +21,11 @@ public class CurrencyServiceImpl  implements CurrencyService{
     }
 
     public Double getMaxSaleRateCurrency(Long fromCurrencyId,Long toCurrencyId) {
-        GlCurrency fromCurrency= currencyRepository.findById(fromCurrencyId).orElse(null);
-        GlCurrency toCurrency= currencyRepository.findById(toCurrencyId).orElse(null);
-        List<GlCurrencyRates> currencyRate = currencyRatesRepository.findMaxByFromCurrencyAndToCurrency(fromCurrency,toCurrency);
-        return  currencyRate!=null && currencyRate.size()>0?currencyRate.get(0).getSaleRate():null;
+//        GlCurrency fromCurrency= currencyRepository.findById(fromCurrencyId).orElse(null);
+//        GlCurrency toCurrency= currencyRepository.findById(toCurrencyId).orElse(null);
+       // List<GlCurrencyRates> currencyRate = currencyRatesRepository.findMaxByFromCurrencyAndToCurrency(fromCurrency,toCurrency);
+//        return  currencyRate!=null && currencyRate.size()>0?currencyRate.get(0).getSaleRate():null;
+        return null;
     }
     
 }

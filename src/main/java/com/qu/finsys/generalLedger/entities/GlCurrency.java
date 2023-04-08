@@ -41,9 +41,8 @@ public class GlCurrency {
     
     
     @OneToMany(
-        mappedBy = "currency",
         cascade = CascadeType.PERSIST,
-        fetch = FetchType.LAZY
+        fetch = FetchType.EAGER
     )     
     private List<GlCurrencyRates> currencyRatesList = new ArrayList<>();
 
