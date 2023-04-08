@@ -42,11 +42,12 @@ public class UniversityCenters {
     private String centerAddress;
     @Email
     private String centerEmail;
+    @Column(nullable = false,columnDefinition = "NUMBER(1) DEFAULT 1")
     private Boolean isActive;
     @Column(nullable = false)
-    private Date createdBy;
-    @Column(nullable = false,columnDefinition = "CURRENT_TIMESTAMP")
-    private Timestamp createdDate;
+    private String createdBy;
+    @Column(nullable = false,columnDefinition = "DATE DEFAULT SYSDATE")
+    private Date createdDate;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     @JoinTable(name = "university_center_map", joinColumns = @JoinColumn(name = "univ_id"), inverseJoinColumns = @JoinColumn(name = "center_id"))
