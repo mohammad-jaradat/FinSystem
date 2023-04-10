@@ -17,7 +17,7 @@ import java.util.Date;
 public class GlCurrencyRates {
 
     @EmbeddedId
-    GlCurrencyRatesPk ratesPk;
+    private GlCurrencyRatesPk ratesPk;
     
     @Column(name = "sale_rate", length = 50, nullable = false)
     private Double  saleRate;

@@ -1,9 +1,8 @@
 package com.qu.finsys.generalLedger.services;
 
 import com.qu.finsys.generalLedger.entities.GlCurrency;
-import com.qu.finsys.generalLedger.entities.GlCurrencyRates;
-import com.qu.finsys.generalLedger.repositories.CurrencyRatesRepository;
-import com.qu.finsys.generalLedger.repositories.CurrencyRepository;
+import com.qu.finsys.generalLedger.repositories.GlCurrencyRatesRepository;
+import com.qu.finsys.generalLedger.repositories.GlCurrencyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +12,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CurrencyServiceImpl  implements CurrencyService{ 
     
-    private final CurrencyRepository currencyRepository;
-    private final CurrencyRatesRepository currencyRatesRepository;
+    private final GlCurrencyRepository currencyRepository;
+    private final GlCurrencyRatesRepository currencyRatesRepository;
 
     public List<GlCurrency> getAllCurrencies() {
         return currencyRepository.findAll();

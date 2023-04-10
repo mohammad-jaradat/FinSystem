@@ -38,11 +38,9 @@ public class GlCurrency {
     @Column(name = "is_active", length = 8, nullable = false)
     private Boolean isActive;
 
-    
-    
     @OneToMany(
         cascade = CascadeType.PERSIST,
-        fetch = FetchType.EAGER
+        fetch = FetchType.LAZY
     )     
     private List<GlCurrencyRates> currencyRatesList = new ArrayList<>();
 
