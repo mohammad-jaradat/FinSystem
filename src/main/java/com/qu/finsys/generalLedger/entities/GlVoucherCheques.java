@@ -7,15 +7,14 @@ package com.qu.finsys.generalLedger.entities;
   Time: 8:23 PM
 */
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -40,5 +39,22 @@ public class GlVoucherCheques {
     private Long chequeTransAccountNo;
     @Column(name = "notes",length = 100,nullable = false)
     private String notes;
+
+    @OneToMany(
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumns({
+            @JoinColumn(name = "interval_no",  referencedColumnName = "interval_no"),
+            @JoinColumn(name = "center_no",    referencedColumnName = "center_no"),
+            @JoinColumn(name = "voucher_type", referencedColumnName = "voucher_type"),
+            @JoinColumn(name = "voucher_no",   referencedColumnName = "voucher_no"),
+            @JoinColumn(name = "row_no",       referencedColumnName = "row_no"),
+            @JoinColumn(name = "cheque_no",         referencedColumnName = "cheque_no"),
+            @JoinColumn(name = "cheque_account_no", referencedColumnName = "cheque_account_no"),
+            @JoinColumn(name = "cheque_trans_seq",  referencedColumnName = "cheque_trans_seq")
+    })
+    private List<GlVoucherChequesPicture> voucherChequesPictureList = new ArrayList<>();
+
 
 }

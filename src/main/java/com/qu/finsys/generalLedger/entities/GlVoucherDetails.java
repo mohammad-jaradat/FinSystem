@@ -1,14 +1,13 @@
 package com.qu.finsys.generalLedger.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /*
   Created by IntelliJ IDEA.
@@ -45,5 +44,17 @@ public class GlVoucherDetails {
     private Date   transferDate;
 
 
+    @OneToMany(
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumns({
+            @JoinColumn(name = "interval_no",  referencedColumnName = "interval_no"),
+            @JoinColumn(name = "center_no",    referencedColumnName = "center_no"),
+            @JoinColumn(name = "voucher_type", referencedColumnName = "voucher_type"),
+            @JoinColumn(name = "voucher_no",   referencedColumnName = "voucher_no"),
+            @JoinColumn(name = "row_no",       referencedColumnName = "row_no")
+    })
+    private List<GlVoucherCheques> voucherChequesList = new ArrayList<>();
 
 }

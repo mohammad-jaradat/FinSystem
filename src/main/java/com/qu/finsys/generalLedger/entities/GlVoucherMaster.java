@@ -59,5 +59,11 @@ public class GlVoucherMaster {
             cascade = CascadeType.PERSIST,
             fetch = FetchType.LAZY
     )
+    @JoinColumns({
+            @JoinColumn(name = "interval_no",  referencedColumnName = "interval_no"),
+            @JoinColumn(name = "center_no",    referencedColumnName = "center_no"),
+            @JoinColumn(name = "voucher_type", referencedColumnName = "voucher_type"),
+            @JoinColumn(name = "voucher_no",   referencedColumnName = "voucher_no")
+    })
     private List<GlVoucherDetails> voucherDetailsList = new ArrayList<>();
 }
