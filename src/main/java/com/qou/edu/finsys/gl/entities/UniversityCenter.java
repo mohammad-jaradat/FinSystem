@@ -1,4 +1,4 @@
-package com.qou.edu.finsys.entities;
+package com.qou.edu.finsys.gl.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -9,34 +9,46 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name = "university_info")
-public class UniversityInfo {
+@Table(name = "university_center")
+public class UniversityCenter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long univId;
+    private Long centerNo;
 
-    private String univAName;
-    private String univEName;
+    private String centerAName;
+    private String centerEName;
     @Size(min = 10, max = 10, message = "Tel Number must be exactly 10 digits long")
     @Pattern(regexp = "^\\d{10}$", message = "Tel Number must contain only Numbers")
-    private String univTel1;
+    private String centerTel1;
     @Size(min = 10, max = 10, message = "Tel Number must be exactly 10 digits long")
     @Pattern(regexp = "^\\d{10}$", message = "Tel Number must contain only Numbers")
-    private String univTel2;
+    private String centerTel2;
     @Size(min = 10, max = 13, message = "Fax Number must be 10-13 digits long")
     @Pattern(regexp = "^\\d{13}$", message = "Fax Number must contain only Numbers")
-    private String univFax1;
+    private String centerFax1;
     @Size(min = 10, max = 13, message = "Fax Number must be 10-13 digits long")
     @Pattern(regexp = "^\\d{13}$", message = "Fax Number must contain only Numbers")
-    private String univFax2;
-    private String univWebsite;
+    private String centerFax2;
+    private String centerAddress;
     @Email
-    private String univEmail;
-    private String univPresName;
-    private String univLogo;
+    private String centerEmail;
+    @Column(nullable = false,columnDefinition = "NUMBER(1) DEFAULT 1")
+    private Boolean isActive;
+    @Column(nullable = false)
+    private String createdBy;
+    @Column(nullable = false,columnDefinition = "DATE DEFAULT SYSDATE")
+    private Date createdDate;
+
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @JoinTable(name = "university_center_map", joinColumns = @JoinColumn(name = "univ_id"), inverseJoinColumns = @JoinColumn(name = "center_id"))
+    private Set<UniversityInfo> universityCenters = new HashSet<>();
 }

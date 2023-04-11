@@ -1,5 +1,6 @@
-package com.qou.edu.finsys.payloads;
+package com.qou.edu.finsys.gl.payloads;
 
+import com.qou.edu.finsys.gl.dtos.UniversityInfoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +10,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EntityResponse {
+public class UniversityInfoResponse {
 	
-	private List<?> content;
+	private List<UniversityInfoDTO> content;
 	private Integer pageNumber;
 	private Integer pageSize;
 	private Long totalElements;
