@@ -40,7 +40,7 @@ public class GlCurrency {
 
     @OneToMany(
         cascade = CascadeType.PERSIST,
-        fetch = FetchType.LAZY
+        fetch = FetchType.EAGER
     )
     @JoinColumn(name = "from_currency_id", referencedColumnName = "currency_id")
     private List<GlCurrencyRates> currencyRatesList = new ArrayList<>();
