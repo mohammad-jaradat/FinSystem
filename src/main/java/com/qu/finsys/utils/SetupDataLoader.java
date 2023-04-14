@@ -4,8 +4,8 @@ import com.qu.finsys.entities.Privilege;
 import com.qu.finsys.entities.Role;
 import com.qu.finsys.entities.User;
 import com.qu.finsys.generalLedger.entities.GlCurrency;
-import com.qu.finsys.generalLedger.repositories.CurrencyRatesRepository;
-import com.qu.finsys.generalLedger.repositories.CurrencyRepository;
+import com.qu.finsys.generalLedger.repositories.GlCurrencyRatesRepository;
+import com.qu.finsys.generalLedger.repositories.GlCurrencyRepository;
 import com.qu.finsys.repositories.PrivilegeRepository;
 import com.qu.finsys.repositories.RoleRepository;
 import com.qu.finsys.repositories.UserRepository;
@@ -40,8 +40,8 @@ public class SetupDataLoader implements
     private PasswordEncoder passwordEncoder;
 
 
-    private final CurrencyRepository currencyRepository;
-    private final CurrencyRatesRepository currencyRatesRepository;
+    private final GlCurrencyRepository currencyRepository;
+    private final GlCurrencyRatesRepository currencyRatesRepository;
 
     @Override
     @Transactional
