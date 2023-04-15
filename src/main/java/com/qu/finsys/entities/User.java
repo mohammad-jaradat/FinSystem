@@ -22,11 +22,14 @@ public class User {
     private Long id;
 
     @Size(min = 3, max = 20, message = "First Name must be between 5 and 30 characters long")
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "First Name must not contain numbers or special characters")
-    private String firstName;
-    @Size(min = 3, max = 20, message = "Last Name must be between 5 and 30 characters long")
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "Last Name must not contain numbers or special characters")
-    private String lastName;
+    @Pattern(regexp = "^[a-zA-Z]*$", message = "User Name must not contain numbers or special characters")
+    private String username;
+//    @Size(min = 3, max = 20, message = "First Name must be between 5 and 30 characters long")
+//    @Pattern(regexp = "^[a-zA-Z]*$", message = "First Name must not contain numbers or special characters")
+//    private String firstName;
+//    @Size(min = 3, max = 20, message = "Last Name must be between 5 and 30 characters long")
+//    @Pattern(regexp = "^[a-zA-Z]*$", message = "Last Name must not contain numbers or special characters")
+//    private String lastName;
     @Email
     @Column(unique = true, nullable = false)
     private String email;

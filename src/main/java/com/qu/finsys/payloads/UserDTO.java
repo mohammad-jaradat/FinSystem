@@ -14,8 +14,7 @@ import java.util.Set;
 public class UserDTO {
 	
 	private Long userId;
-	private String firstName;
-	private String lastName;
+	private String username;
 	private String mobileNumber;
 	private String email;
 	private String password;

@@ -63,8 +63,9 @@ public class SetupDataLoader implements
 
         if(!userRepository.findByEmail("test@test.com").isPresent()){
             User user = new User();
-            user.setFirstName("Test");
-            user.setLastName("Test");
+            user.setUsername("Test");
+//            user.setFirstName("Test");
+//            user.setLastName("Test");
             user.setPassword(passwordEncoder.encode("test"));
             user.setEmail("test@test.com");
             user.setRoles(Collections.singleton(adminRole));

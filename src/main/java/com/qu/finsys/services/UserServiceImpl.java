@@ -116,8 +116,9 @@ public class UserServiceImpl implements UserService {
 
 		String encodedPass = passwordEncoder.encode(userDTO.getPassword());
 
-		user.setFirstName(userDTO.getFirstName());
-		user.setLastName(userDTO.getLastName());
+		user.setUsername(userDTO.getUsername());
+//		user.setFirstName(userDTO.getFirstName());
+//		user.setLastName(userDTO.getLastName());
 		user.setMobileNumber(userDTO.getMobileNumber());
 		user.setEmail(userDTO.getEmail());
 		user.setPassword(encodedPass);
