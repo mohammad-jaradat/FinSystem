@@ -17,12 +17,15 @@ public class JWTUtil {
 	@Value("${jwt_secret}")
 	private String secret;
 
+	private int jwtExpirationMs=60*15*1000;
+
 	public String generateToken(String email) throws IllegalArgumentException, JWTCreationException {
 		return JWT.create()
 				.withSubject("User Details")
 				.withClaim("email", email)
 				.withIssuedAt(new Date())
 				.withIssuer("Event Scheduler")
+				.withExpiresAt(new Date((new Date()).getTime() + jwtExpirationMs))
 				.sign(Algorithm.HMAC256(secret));
 	}
 	
