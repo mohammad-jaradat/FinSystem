@@ -1,5 +1,6 @@
 package com.qu.finsys.utils;
 
+import com.qu.finsys.config.AppConstants;
 import com.qu.finsys.entities.Privilege;
 import com.qu.finsys.entities.Role;
 import com.qu.finsys.entities.User;
@@ -27,19 +28,10 @@ public class SetupDataLoader implements
 
     boolean alreadySetup = false;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PrivilegeRepository privilegeRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PrivilegeRepository privilegeRepository;
+    private final PasswordEncoder passwordEncoder;
     private final GlCurrencyRepository currencyRepository;
     private final GlCurrencyRatesRepository currencyRatesRepository;
 
@@ -59,17 +51,13 @@ public class SetupDataLoader implements
         currencyRepository.save(currencyUsd);
         currencyRepository.save(currencyEuro);
 
-       // if (alreadySetup)
+        // if (alreadySetup)
          //   return;
-        Privilege readPrivilege
-                = createPrivilegeIfNotFound("READ_PRIVILEGE");
-        Privilege writePrivilege
-                = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
+        Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
+        Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
 
-        List<Privilege> adminPrivileges = Arrays.asList(
-                readPrivilege, writePrivilege);
-        createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
-        createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
+        createRoleIfNotFound(AppConstants.ADMIN_ROLE_ID,"ROLE_ADMIN", Set.of(readPrivilege, writePrivilege));
+        createRoleIfNotFound(AppConstants.USER_ROLE_ID,"ROLE_USER", Set.of(readPrivilege));
 
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 
@@ -100,13 +88,11 @@ public class SetupDataLoader implements
     }
 
     @Transactional
-    Role createRoleIfNotFound(
-            String name, Collection<Privilege> privileges) {
+    Role createRoleIfNotFound( Long roleId,String roleName, Set<Privilege> privileges) {
 
-        Role role = roleRepository.findByName(name);
+        Role role = roleRepository.findByName(roleName);
         if (role == null) {
-            role = new Role(name);
-           // role.setPrivileges((Set<Privilege>) privileges);
+            role = new Role(roleId,roleName,privileges);
             roleRepository.save(role);
         }
         return role;

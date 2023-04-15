@@ -18,14 +18,10 @@ import java.util.Set;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    public Role(String name){
-        this.name=name;
-    }
 
     //@ManyToMany(mappedBy = "roles")
     //private Collection<User> users;

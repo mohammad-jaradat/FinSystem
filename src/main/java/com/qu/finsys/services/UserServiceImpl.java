@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
 		try {
 			User user = modelMapper.map(userDTO, User.class);
-			Role role = roleRepository.findById(AppConstants.USER_ID).get();
+			Role role = roleRepository.findById(AppConstants.USER_ROLE_ID).get();
 			user.getRoles().add(role);
 
 			User registeredUser = userRepository.save(user);
