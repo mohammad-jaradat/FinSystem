@@ -185,15 +185,19 @@ public class UniversityInfoServiceTest {
         @DisplayName("Given the valid data")
         public class SuccessAdd {
 
-            UniversityInfo mockUniversityInfo;
+            UniversityInfo universityInfo;
             UniversityInfoDTO mockUniversityInfoDTO;
+            UniversityInfoDTO universityInfoDTO;
 
             @BeforeEach
             void setup() {
-                mockUniversityInfo = new UniversityInfo(1L, "جامعة القدس المفتوحة", "Alquds Open University",
+                universityInfo = new UniversityInfo(1L, "جامعة القدس المفتوحة", "Alquds Open University",
                         "02-2423160", "02-2429861", "02-2421748", "02-2421748", "http://www.qou.edu",
                         "plan_quality@qou.edu", "test pres name", "path to logo://", null);
-                mockUniversityInfoDTO = modelMapper.map(mockUniversityInfo, UniversityInfoDTO.class);
+
+                universityInfoDTO = modelMapper.map(universityInfo, UniversityInfoDTO.class);
+                mockUniversityInfoDTO = universityInfoDTO;
+
             }
 
             @Test
@@ -203,7 +207,7 @@ public class UniversityInfoServiceTest {
                 doReturn(mockUniversityInfoDTO).when(universityInfoRepository).save(any());
 
                 // execute the service call
-                UniversityInfoDTO returnUniversityInfoDTO = universityInfoService.addUniversityInfo(mockUniversityInfoDTO);
+                UniversityInfoDTO returnUniversityInfoDTO = universityInfoService.addUniversityInfo(universityInfoDTO);
 
                 // assert the response
                 assertNotNull(returnUniversityInfoDTO, "university should be not null");

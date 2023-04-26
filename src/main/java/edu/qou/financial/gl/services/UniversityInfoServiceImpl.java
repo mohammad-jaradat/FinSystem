@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -64,11 +65,15 @@ public class UniversityInfoServiceImpl implements UniversityInfoService {
     }
 
     @Override
-    public UniversityInfoDTO addUniversityInfo(UniversityInfoDTO universityInfo) {
-//        UniversityInfo universityInfo = universityInfoRepository.findById() // check duplicate, mapto entity , add entity , maptoDTO , return
-        return null;
+    public UniversityInfoDTO addUniversityInfo(UniversityInfoDTO universityInfoDTO) {
+        UniversityInfo universityInfo = modelMapper.map(universityInfoDTO, UniversityInfo.class);
+        UniversityInfo savedUniversityInfo = universityInfoRepository.save(universityInfo);
+        assert (savedUniversityInfo != null && savedUniversityInfo.getUnivId() != null) : "Adding university Failed";
+        // check duplicate, mapto entity , add entity , maptoDTO , return
+        return universityInfoDTO;
     }
 
+    //assert existsUniversityInfo.isEmpty():String.format("Duplicate university record with the same name:%s ,you cannot define university twice ",universityInfo.getUnivEName());
     @Override
     public UniversityInfoDTO updateUniversityInfo(Long universityId, UniversityInfoDTO universityInfoDTO) {
         UniversityInfo universityInfo = universityInfoRepository.findById(universityId)
@@ -83,7 +88,7 @@ public class UniversityInfoServiceImpl implements UniversityInfoService {
         universityInfo.setUnivEmail(universityInfoDTO.getUnivEmail());
         universityInfo.setUnivPresName(universityInfoDTO.getUnivPresName());
         universityInfo.setUnivLogo(universityInfoDTO.getUnivLogo());
-
+        universityInfoRepository.save(universityInfo);
         return modelMapper.map(universityInfo, UniversityInfoDTO.class);
     }
 

@@ -13,17 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 @SecurityRequirement(name = "FinSys App")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     @Autowired
@@ -61,7 +60,15 @@ public class AuthController {
         authenticationManager.authenticate(authCredentials);
 
         String token = jwtUtil.generateToken(credentials.getEmail());
+        UserDTO userDTO=userService.getUserByEmail(credentials.getEmail());
+        userDTO.setPassword("");
+        Map<String,Object> rs=new HashMap<>();
+        rs.put("accessToken", token);
+        rs.put("user",userDTO);
 
-        return Collections.singletonMap("jwt-token", token);
+
+
+        //return Collections.map .Map(["jwt-token", token]);
+        return rs;
     }
 }
