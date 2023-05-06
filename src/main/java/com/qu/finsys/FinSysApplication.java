@@ -7,9 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @SecurityScheme(name = "FinSys App", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
+//@ComponentScan("com.qu.finsys.repositories")
+//@ComponentScan(basePackages = "com.*")
 public class FinSysApplication {
 
 	public static void main(String[] args) {
