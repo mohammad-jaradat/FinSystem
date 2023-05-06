@@ -26,6 +26,8 @@ public class UserInfoConfig implements UserDetails {
 	public UserInfoConfig(User user) {
 		this.email = user.getEmail();
 		this.password = user.getPassword();
+		//loop on evrey previlage and put it in the below
+
 		this.authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
 	System.out.println(this.authorities.toString());
 	}
