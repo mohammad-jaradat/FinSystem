@@ -37,8 +37,8 @@ public class SecurityConfig {
 			.disable()
 			.authorizeHttpRequests()
 			.requestMatchers(AppConstants.PUBLIC_URLS).permitAll()
-				.requestMatchers(AppConstants.ADMIN_URLS).permitAll()//hasAuthority("ROLE_ADMIN")
-				.requestMatchers(AppConstants.USER_URLS).permitAll()//.hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+				.requestMatchers(AppConstants.ADMIN_URLS).hasAuthority("ROLE_ADMIN")
+				.requestMatchers(AppConstants.USER_URLS).hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 
 			.anyRequest()
 			.authenticated()
