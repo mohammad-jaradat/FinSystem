@@ -18,7 +18,7 @@ public class GlVoucherTypes {
     private String typeAName;
     private String typeEName;
 
-    @OneToMany(mappedBy="glVoucherTypes")
+    @OneToMany(mappedBy="glVoucherTypes",fetch = FetchType.LAZY)
     private List<GlVoucherNumbers> glVoucherNumbers;
 
 }
