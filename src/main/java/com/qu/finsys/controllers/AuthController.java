@@ -7,6 +7,11 @@ import com.qu.finsys.security.JWTUtil;
 import com.qu.finsys.services.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +29,9 @@ import java.util.Map;
 @SecurityRequirement(name = "FinSys App")
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
+
+
+	Logger logger = LogManager.getLogger(AuthController.class);
 
 	@Autowired
 	private UserService userService;
@@ -53,20 +61,29 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public Map<String, Object> loginHandler(@Valid @RequestBody LoginCredentials credentials) {
+		Map<String,Object> rs=new HashMap<>();
+		try{
+		logger.info("loginHandler: "+"  trying to login by:"+credentials.getEmail());
 
 		UsernamePasswordAuthenticationToken authCredentials = new UsernamePasswordAuthenticationToken(
 				credentials.getEmail(), credentials.getPassword());
 
 		authenticationManager.authenticate(authCredentials);
 
+		logger.info("loginHandler: "+credentials.getEmail()+" authenticated successfully");
+
 		String token = jwtUtil.generateToken(credentials.getEmail());
 		UserDTO userDTO=userService.getUserByEmail(credentials.getEmail());
 		userDTO.setPassword("");
-		Map<String,Object> rs=new HashMap<>();
+
 		rs.put("accessToken", token);
 		rs.put("user",userDTO);
 
+		logger.info("loginHandler: "+credentials.getEmail()+" token generated successfully");
 
+		}catch (Exception e){
+			logger.error("loginHandler: "+e.getMessage()+" trace:"+e.getStackTrace());
+		}
 
 		//return Collections.map .Map(["jwt-token", token]);
 		return rs;
