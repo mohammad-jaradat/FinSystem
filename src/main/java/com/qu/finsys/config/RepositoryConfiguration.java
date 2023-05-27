@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.qu.finsys.repositories",
+        basePackages = "com.qu.finsys.*",
         repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class
 )
 public class RepositoryConfiguration {
